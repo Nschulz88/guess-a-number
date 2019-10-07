@@ -8,6 +8,7 @@
     "format": "prettier '**/*.js' --write",
     "format:check": "prettier '**/*.js' --check",
     "lint": "eslint",
+    "flow": "flow",
     "lint:all": "npm run lint && npm run format:check",
     "eject": "expo eject"
   },
@@ -31,6 +32,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "flow-bin": "^0.109.0",
+    "flow-typed": "^2.6.1",
     "husky": "^3.0.8",
     "prettier": "^1.18.2"
   },

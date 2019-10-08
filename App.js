@@ -17,6 +17,9 @@ const App = () => {
   const [modalIsOpen, setModalState] = useState(false);
 
   const addGoalHandler = enteredGoal => {
+    if (enteredGoal.length === 0) {
+      return;
+    }
     setCourseGoals(currentGoals => [
       ...currentGoals,
       { key: Math.random().toString(), value: enteredGoal },

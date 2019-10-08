@@ -1,61 +1,48 @@
 // @flow
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, View, FlatList, Button } from 'react-native';
+
+import GoalItem from './components/GoalItem.react';
+import GoalInput from './components/GoalInput.react';
 
 const styles = StyleSheet.create({
   screen: {
     padding: 50,
   },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  textInput: {
-    width: '80%',
-    borderColor: 'black',
-    borderWidth: 1,
-    padding: 10,
-  },
-  listItem: {
-    padding: 10,
-    marginVertical: 10,
-    backgroundColor: '#ccc',
-    borderColor: 'black',
-    borderWidth: 1,
-  },
 });
-
-const App = (): any => {
-  const [enteredGoal, setEnteredGoal] = useState('');
+// $FlowFixMe
+const App = () => {
   const [courseGoals, setCourseGoals] = useState([]);
+  const [modalIsOpen, setModalState] = useState(false);
 
-  const goalInputhandler = enteredText => {
-    setEnteredGoal(enteredText);
+  const addGoalHandler = enteredGoal => {
+    setCourseGoals(currentGoals => [
+      ...currentGoals,
+      { key: Math.random().toString(), value: enteredGoal },
+    ]);
+    setModalState(false);
   };
 
-  const addGoalHandler = () => {
-    setCourseGoals(currentGoals => [...currentGoals, enteredGoal]);
+  const deleteGoalHandler = goalId => {
+    setCourseGoals(currentGoals =>
+      currentGoals.filter(item => item.key !== goalId),
+    );
   };
   return (
     <View style={styles.screen}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          onChangeText={goalInputhandler}
-          placeholder="Course Goal"
-          style={styles.textInput}
-          value={enteredGoal}
-        />
-        <Button title="ADD" onPress={addGoalHandler} />
-      </View>
-      <View>
-        {courseGoals.map(goal => (
-          <View key={goal} style={styles.listItem}>
-            <Text>{goal}</Text>
-          </View>
-        ))}
-      </View>
+      <Button title="Add new Goal" onPress={() => setModalState(true)} />
+      <GoalInput
+        modalIsOpen={modalIsOpen}
+        onAddGoal={addGoalHandler}
+        isModalOpen={setModalState}
+      />
+      <FlatList
+        data={courseGoals}
+        renderItem={itemData => (
+          <GoalItem onDelete={deleteGoalHandler} item={itemData.item} />
+        )}
+      />
     </View>
   );
 };

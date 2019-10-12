@@ -1,2 +1,2 @@
-# react-native-2019
-React Native Testing App
+# guess-a-number
+React Native Practice App with Native Base UI Kit.

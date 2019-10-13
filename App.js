@@ -8,11 +8,28 @@ import * as Font from 'expo-font';
 
 import MainHeader from './components/MainHeader';
 import StartGameScreen from './screens/StartGameScreen';
+import GameScreen from './screens/GameScreen';
+import GameOverScreen from './screens/GameOver';
 
 const { useState } = React;
 
 const App = (): React.Node => {
   const [isReady, setAppReadyState] = useState(false);
+  const [numberOfRounds, setNumberOfRounds] = useState(0);
+  const [userNumber, setUserNumber] = useState();
+
+  const startGameHandler = pickedNumber => {
+    setUserNumber(pickedNumber);
+    setNumberOfRounds(0);
+  };
+
+  const resetGame = () => {
+    setUserNumber();
+  };
+
+  const gameOverHandler = rounds => {
+    setNumberOfRounds(rounds);
+  };
 
   const loadFonts = async () => {
     await Font.loadAsync({
@@ -24,12 +41,31 @@ const App = (): React.Node => {
 
   loadFonts();
 
+  const renderGameScreen = (currentRounds, number) => {
+    if (currentRounds <= 0) {
+      return <GameScreen usersPick={number} onGameOver={gameOverHandler} />;
+    }
+    return (
+      <GameOverScreen
+        startOver={resetGame}
+        playedRounds={numberOfRounds}
+        computersGuess={number}
+      />
+    );
+  };
+
+  const activeScreen = userNumber ? (
+    renderGameScreen(numberOfRounds, userNumber)
+  ) : (
+    <StartGameScreen startGameHandler={startGameHandler} />
+  );
+
   return !isReady ? (
     <AppLoading />
   ) : (
     <Container>
       <MainHeader title="Guess a number" />
-      <StartGameScreen />
+      {activeScreen}
     </Container>
   );
 };

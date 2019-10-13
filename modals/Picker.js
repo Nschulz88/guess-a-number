@@ -15,7 +15,7 @@ type PickerProps = {
   showPickerModal: boolean,
   selectionOptionsArray: Array<string>,
   selectedValue: string,
-  setPickedNumber: string => void,
+  setEnteredValue: string => void,
   openModal: boolean => void,
 };
 
@@ -23,7 +23,7 @@ const PickerModal = ({
   showPickerModal,
   selectionOptionsArray,
   selectedValue,
-  setPickedNumber,
+  setEnteredValue,
   openModal,
 }: PickerProps): React.Node => {
   const pickerSelection = selectionOptionsArray.map(selection => (
@@ -44,7 +44,7 @@ const PickerModal = ({
         <Picker
           selectedValue={selectedValue}
           style={{ height: 70, width: 100 }}
-          onValueChange={itemValue => setPickedNumber(itemValue)}
+          onValueChange={itemValue => setEnteredValue(itemValue)}
         >
           {pickerSelection}
         </Picker>

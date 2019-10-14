@@ -37,7 +37,7 @@ const GameOver = ({
       <Text>rounds!</Text>
       <Text>I&apos;m a pretty smart computer...</Text>
       <View style={styles.buttonContainer}>
-        <Button style={styles.button} info onPress={() => startOver()}>
+        <Button style={styles.button} info onPress={startOver}>
           <Text>Play again!</Text>
         </Button>
       </View>

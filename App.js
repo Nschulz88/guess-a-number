@@ -18,13 +18,13 @@ const App = (): React.Node => {
   const [numberOfRounds, setNumberOfRounds] = useState(0);
   const [userNumber, setUserNumber] = useState();
 
-  const startGameHandler = pickedNumber => {
-    setUserNumber(pickedNumber);
+  const resetGame = () => {
+    setUserNumber(null);
     setNumberOfRounds(0);
   };
 
-  const resetGame = () => {
-    setUserNumber();
+  const startGameHandler = pickedNumber => {
+    setUserNumber(pickedNumber);
   };
 
   const gameOverHandler = rounds => {

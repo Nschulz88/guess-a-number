@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 // @flow
 
 import * as React from 'react';
@@ -36,11 +37,9 @@ const styles = StyleSheet.create({
 });
 
 const generateRandomNumberBetween = (min, max, exclude) => {
-  const minNumber = Math.ceil(min);
-  const maxNumber = Math.floor(max);
-  const randomNumber = Math.floor(
-    Math.random() * (maxNumber - minNumber) + minNumber,
-  );
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  const randomNumber = Math.floor(Math.random() * (max - min) + min);
   if (randomNumber === exclude) {
     return generateRandomNumberBetween(min, max, exclude);
   }
@@ -57,22 +56,22 @@ const GameScreen = ({ usersPick, onGameOver }: GameScreenProps): React.Node => {
     generateRandomNumberBetween(0, 100, usersPick),
   );
   const [playedRounds, setPlayedRounds] = useState(0);
+  const currentLow = useRef(1);
+  const currentHigh = useRef(100);
 
   useEffect(() => {
     if (numberGuess === usersPick) {
       onGameOver(playedRounds);
     }
-  });
-
-  const currentLow = useRef(1);
-  const currentHigh = useRef(100);
+  }, [numberGuess, playedRounds, usersPick, onGameOver]);
 
   const nextGuessHandler = hint => {
     if (
-      (hint === 'lower' && usersPick > numberGuess) ||
-      (hint === 'higher' && usersPick < numberGuess)
+      (hint === 'lower' && numberGuess < usersPick) ||
+      (hint === 'higher' && numberGuess > usersPick)
     ) {
       Alert.alert('No cheating!', 'Point me in the right direction, please.');
+      return;
     }
     if (hint === 'lower') {
       currentHigh.current = numberGuess;

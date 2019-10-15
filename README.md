@@ -1,14 +1,13 @@
 # guess-a-number
+React Native Practice App simple game against computer guessing a chosen Number.
 
-## React Native Practice App simple game against computer guessing a chosen Number.
+### Screenshots
 
-## Screenshots
+![Game start - pick a number, 50%](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/startgame.png)
+![Game, 50%](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/activegame.png)
+![Game End, 50%](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/endgame.png)
 
-![Game start - pick a number](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/startgame.png)
-![Game](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/activegame.png)
-![Game End](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/endgame.png)
-
-## Running the project from Github
+### Running the project from Github
 
 1. Fork repository.
 2. Run `yarn` to install dependencies.

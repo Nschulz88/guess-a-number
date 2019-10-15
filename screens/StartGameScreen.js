@@ -8,13 +8,14 @@ import PickerModal from '../modals/Picker';
 import ShadowWrapper from '../components/ShadowWrapper';
 import InputTouchable from '../components/InputTouchable';
 import EnhancedTextContainer from '../components/EnhancedText';
+import BoldText from '../components/BoldText';
 
 const { useState } = React;
 
 const styles = StyleSheet.create({
   outerContainer: {
     flex: 1,
-    padding: 10,
+    padding: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -32,13 +33,13 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   mainText: {
-    fontFamily: 'Roboto_medium',
-    fontSize: 22,
-    paddingBottom: 30,
+    fontFamily: 'OpenSans_Bold',
+    fontSize: 24,
+    paddingBottom: 20,
   },
   subText: {
-    fontSize: 18,
-    padding: 10,
+    fontSize: 20,
+    padding: 20,
   },
   button: {
     marginHorizontal: 10,
@@ -95,7 +96,7 @@ const StartGameScreen = ({
   if (confirmed) {
     confirmationToast = (
       <ShadowWrapper style={styles.confirmationWrapper}>
-        <Text>Your Choice:</Text>
+        <BoldText>Your Choice:</BoldText>
         <EnhancedTextContainer>{enteredValue}</EnhancedTextContainer>
         <Button
           style={styles.button}
@@ -112,7 +113,7 @@ const StartGameScreen = ({
     <View style={styles.outerContainer}>
       <Text style={styles.mainText}>Start a new game!</Text>
       <ShadowWrapper style={styles.cardContainer}>
-        <Text style={styles.subText}>Select a Number</Text>
+        <BoldText style={styles.subText}>Select a Number</BoldText>
         <InputTouchable
           value={enteredValue}
           onPressHandler={e => {

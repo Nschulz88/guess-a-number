@@ -3,9 +3,15 @@ React Native Practice App simple game against computer guessing a chosen Number.
 
 ### Screenshots
 
-![Game start - pick a number, 50%](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/startgame.png)
-![Game, 50%](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/activegame.png)
-![Game End, 50%](https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/endgame.png)
+<img src="https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/startgame.png" alt="game-start"
+	title="Game Start" width="29%" height="29%" 
+ />
+ <img src="https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/activegame.png" alt="game-start"
+	title="Game Start" width="28%" height="28%" 
+ />
+ <img src="https://github.com/Nschulz88/guess-a-number/blob/master/assets/screenshots/endgame.png" alt="game-start"
+	title="Game Start" width="30%" height="30%" 
+ />
 
 ### Running the project from Github
 

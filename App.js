@@ -35,6 +35,8 @@ const App = (): React.Node => {
     await Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      OpenSans_Bold: require('./assets/fonts/OpenSans-Bold.ttf'),
+      OpenSans_Regular: require('./assets/fonts/OpenSans-Regular.ttf'),
     });
     setAppReadyState(true);
   };

@@ -2,10 +2,11 @@
 // @flow
 
 import * as React from 'react';
-import { StyleSheet, Alert } from 'react-native';
+import { StyleSheet, Alert, ScrollView } from 'react-native';
 import { Button, Text, View } from 'native-base';
 import EnhancedText from '../components/EnhancedText';
 import ShadowWrapper from '../components/ShadowWrapper';
+import BoldText from '../components/BoldText';
 
 const { useState, useRef, useEffect } = React;
 
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     alignItems: 'center',
-    padding: 20,
+    padding: 10,
     maxWidth: '80%',
     borderRadius: 10,
   },
@@ -33,6 +34,26 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
     paddingVertical: 10,
+  },
+  listContainer: {
+    width: '60%',
+    flex: 1,
+    marginVertical: 10,
+  },
+  scrollList: {
+    flexGrow: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  listItem: {
+    flexDirection: 'row',
+    padding: 10,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    marginVertical: 10,
+    justifyContent: 'space-between',
+    width: '60%',
   },
 });
 
@@ -51,19 +72,25 @@ type GameScreenProps = {
   onGameOver: number => void,
 };
 
+const renderGuessedNumbersList = (item, roundNumber) => (
+  <View style={styles.listItem} key={item}>
+    <BoldText>{roundNumber}. </BoldText>
+    <BoldText>{item}</BoldText>
+  </View>
+);
+
 const GameScreen = ({ usersPick, onGameOver }: GameScreenProps): React.Node => {
-  const [numberGuess, setNumberGuess] = useState(
-    generateRandomNumberBetween(0, 100, usersPick),
-  );
-  const [playedRounds, setPlayedRounds] = useState(0);
+  const initialGuess = generateRandomNumberBetween(0, 100, usersPick);
+  const [numberGuess, setNumberGuess] = useState(initialGuess);
+  const [pastGuesses, setPastGuesses] = useState([initialGuess]);
   const currentLow = useRef(1);
   const currentHigh = useRef(100);
 
   useEffect(() => {
     if (numberGuess === usersPick) {
-      onGameOver(playedRounds);
+      onGameOver(pastGuesses.length);
     }
-  }, [numberGuess, playedRounds, usersPick, onGameOver]);
+  }, [numberGuess, pastGuesses, usersPick, onGameOver]);
 
   const nextGuessHandler = hint => {
     if (
@@ -76,7 +103,7 @@ const GameScreen = ({ usersPick, onGameOver }: GameScreenProps): React.Node => {
     if (hint === 'lower') {
       currentHigh.current = numberGuess;
     } else {
-      currentLow.current = numberGuess;
+      currentLow.current = numberGuess + 1;
     }
     const nextGuess = generateRandomNumberBetween(
       currentLow.current,
@@ -84,7 +111,7 @@ const GameScreen = ({ usersPick, onGameOver }: GameScreenProps): React.Node => {
       numberGuess,
     );
     setNumberGuess(nextGuess);
-    setPlayedRounds(playedRounds + 1);
+    setPastGuesses(currentState => [nextGuess, ...currentState]);
   };
 
   return (
@@ -109,6 +136,13 @@ const GameScreen = ({ usersPick, onGameOver }: GameScreenProps): React.Node => {
           </Button>
         </View>
       </ShadowWrapper>
+      <View style={styles.listContainer}>
+        <ScrollView contentContainerStyle={styles.scrollList}>
+          {pastGuesses.map((item, index) =>
+            renderGuessedNumbersList(item, pastGuesses.length - index),
+          )}
+        </ScrollView>
+      </View>
     </View>
   );
 };

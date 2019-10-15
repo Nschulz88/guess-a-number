@@ -1,7 +1,8 @@
+/* eslint-disable global-require */
 // @flow
 
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { Text, View, Button } from 'native-base';
 import EnhancedText from '../components/EnhancedText';
 
@@ -14,6 +15,19 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     margin: 20,
+  },
+  imageContainer: {
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 3,
+    borderColor: 'black',
+    overflow: 'hidden',
+    marginVertical: 10,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
   },
 });
 
@@ -32,9 +46,10 @@ const GameOver = ({
     <View style={styles.screen}>
       <Text>Your Number is</Text>
       <EnhancedText>{computersGuess}</EnhancedText>
-      <Text>I guessed it after only </Text>
-      <Text>{playedRounds}</Text>
-      <Text>rounds!</Text>
+      <View style={styles.imageContainer}>
+        <Image source={require('../assets/success.png')} style={styles.image} />
+      </View>
+      <Text>I guessed it after only {playedRounds} rounds! </Text>
       <Text>I&apos;m a pretty smart computer...</Text>
       <View style={styles.buttonContainer}>
         <Button style={styles.button} info onPress={startOver}>

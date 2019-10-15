@@ -5,6 +5,7 @@ module.exports = {
     'airbnb',
     'plugin:flowtype/recommended',
     'prettier',
+    'prettier/react',
   ],
   globals: {
     __DEV__: true,
